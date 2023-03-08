@@ -13,6 +13,8 @@ jobs:
         command: ["cargo --help", "rustup --help", "python --help", "git --help"]
 
     steps:
+    - run: Set-MpPreference -DisableRealtimeMonitoring $true
+      shell: powershell
     - run: time ${{ matrix.command }}
       shell: bash
     - run: time ${{ matrix.command }}
@@ -28,6 +30,8 @@ jobs:
         command: ["cargo --help", "rustup --help", "python --help", "git --help"]
 
     steps:
+    - run: Set-MpPreference -DisableRealtimeMonitoring $true
+      shell: pwsh
     - run: (Measure-Command{ ${{ matrix.command }} }).TotalSeconds
       shell: pwsh
     - run: (Measure-Command{ ${{ matrix.command }} }).TotalSeconds
@@ -43,6 +47,8 @@ jobs:
         command: ["cargo --help", "rustup --help", "python --help", "git --help"]
 
     steps:
+    - run: Set-MpPreference -DisableRealtimeMonitoring $true
+      shell: powershell
     - run: (Measure-Command{ ${{ matrix.command }} }).TotalSeconds
       shell: powershell
     - run: (Measure-Command{ ${{ matrix.command }} }).TotalSeconds
