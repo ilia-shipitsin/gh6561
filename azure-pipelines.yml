@@ -1,7 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - main
@@ -10,8 +6,10 @@ pool:
   vmImage: windows-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: |
+      choco install windows-performance-toolkit
+      "C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -start -on LOADER+PROC_THREAD+DISK_IO+HARD_FAULTS+DPC+INTERRUPT+CSWITCH+PERF_COUNTER+FILE_IO_INIT+REGISTRY
+  displayName: 'install and start WPP'
 
 - task: PowerShell@2
   inputs:
@@ -22,3 +20,14 @@ steps:
       $year=(Get-Date).ToString('yyyy') 
       
       Write-Host "##vso[task.setvariable variable=currentYear;]$year"
+
+- task: CmdLine@2
+  inputs:
+    script: '"c:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -d tmp.etl'
+    
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\tmp.etl'
+    ArtifactName: 'tmp.etl'
+    publishLocation: 'Container'
