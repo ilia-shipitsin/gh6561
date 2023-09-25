@@ -17,7 +17,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      md $(_tempFolder)\versionFile
+      md $(Agent.TempDirectory)\versionFile
       
       $year=(Get-Date).ToString('yyyy') 
       
