@@ -15,11 +15,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      md $(Agent.TempDirectory)\versionFile
-      
-      $year=(Get-Date).ToString('yyyy') 
-      
-      Write-Host "##vso[task.setvariable variable=currentYear;]$year"
+      Write-Host "12345"
+      #md $(Agent.TempDirectory)\versionFile
+      #
+      #$year=(Get-Date).ToString('yyyy') 
+      #
+      #Write-Host "##vso[task.setvariable variable=currentYear;]$year"
 
 - task: CmdLine@2
   inputs:
