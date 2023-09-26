@@ -12,7 +12,8 @@ steps:
   displayName: 'install and start WPP'
 
 - pwsh: |
-    Write-Host "12345"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0
+    Write-Host "disable smartscreen"
     
 
 - powershell: |
