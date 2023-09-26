@@ -21,6 +21,16 @@ steps:
       #$year=(Get-Date).ToString('yyyy') 
       #
       #Write-Host "##vso[task.setvariable variable=currentYear;]$year"
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "12345"
+      #md $(Agent.TempDirectory)\versionFile
+      #
+      #$year=(Get-Date).ToString('yyyy') 
+      #
+      #Write-Host "##vso[task.setvariable variable=currentYear;]$year"
 
 - task: CmdLine@2
   inputs:
