@@ -14,14 +14,14 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    pwsh: true
+    pwsh: false
     script: |
       $PSVersionTable
 
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    pwsh: true
+    pwsh: false
     script: |
       Write-Host "12345"
       #md $(Agent.TempDirectory)\versionFile
