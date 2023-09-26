@@ -6,26 +6,13 @@ pool:
   vmImage: windows-latest
 
 steps:
-- script: |
-      choco install windows-performance-toolkit
-      "C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -start -on LOADER+PROC_THREAD+DISK_IO+HARD_FAULTS+DPC+INTERRUPT+CSWITCH+PERF_COUNTER+FILE_IO_INIT+REGISTRY
-  displayName: 'install and start WPP'
-
-- pwsh: |
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0
-    Write-Host "disable smartscreen"
-    
-
-- powershell: |
-    Write-Host "12345"
-
-- task: PowerShell@2
+- task: CmdLine@2
   inputs:
-    targetType: 'inline'
-    pwsh: false
     script: |
-      $PSVersionTable
-
+        choco install windows-performance-toolkit
+        "C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -start -on LOADER+PROC_THREAD+DISK_IO+HARD_FAULTS+DPC+INTERRUPT+CSWITCH+PERF_COUNTER+FILE_IO_INIT+REGISTRY
+  displayName: 'install and start WPP'
+   
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
@@ -37,8 +24,6 @@ steps:
       #$year=(Get-Date).ToString('yyyy') 
       #
       #Write-Host "##vso[task.setvariable variable=currentYear;]$year"
-
-
 
 - task: CmdLine@2
   inputs:
