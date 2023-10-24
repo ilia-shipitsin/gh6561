@@ -6,32 +6,12 @@ pool:
   vmImage: windows-latest
 
 steps:
-- task: CmdLine@2
+
+- task: UseDotNet@2
   inputs:
-    script: |
-        choco install windows-performance-toolkit
-        "C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -start -on LOADER+PROC_THREAD+DISK_IO+HARD_FAULTS+DPC+INTERRUPT+CSWITCH+PERF_COUNTER+FILE_IO_INIT+REGISTRY
-  displayName: 'install and start WPP'
-   
+    version: 8.0
+
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    pwsh: false
-    script: |
-      Write-Host "12345"
-      #md $(Agent.TempDirectory)\versionFile
-      #
-      #$year=(Get-Date).ToString('yyyy') 
-      #
-      #Write-Host "##vso[task.setvariable variable=currentYear;]$year"
-
-- task: CmdLine@2
-  inputs:
-    script: '"c:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -d $(Build.ArtifactStagingDirectory)\tmp.etl'
-    
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)\tmp.etl'
-    ArtifactName: 'tmp.etl'
-    publishLocation: 'Container'
+    script: 'dotnet --list-sdks'
