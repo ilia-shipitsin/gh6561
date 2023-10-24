@@ -10,6 +10,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     version: 8.0
+    includePreviewVersions: true
 
 - task: PowerShell@2
   inputs:
