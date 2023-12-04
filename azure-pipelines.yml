@@ -15,6 +15,8 @@ steps:
   
 
 - task: PowerShell@2
+  condition: always()
   inputs:
     targetType: 'inline'
     script: 'dotnet --list-sdks'
+
